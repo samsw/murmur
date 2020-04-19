@@ -4,22 +4,12 @@ ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
 
-LABEL \
-    org.label-schema.vendor="The Goofball - goofball222@gmail.com" \
-    org.label-schema.url="https://github.com/goofball222/murmur" \
-    org.label-schema.name="Murmur Server" \
-    org.label-schema.version=$VERSION \
-    org.label-schema.vcs-url="https://github.com/goofball222/murmur.git" \
-    org.label-schema.vcs-ref=$VCS_REF \
-    org.label-schema.build-date=$BUILD_DATE \
-    org.label-schema.license="Apache-2.0" \
-    org.label-schema.schema-version="1.0"
-
 ENV \
     DEBUG=false \
     MURMUR_OPTS= \
     PGID=999 \
     PUID=999 \
+    PORT=64738 \
     RUN_CHOWN=true
 
 WORKDIR /opt/murmur
@@ -42,7 +32,7 @@ RUN set -x \
     && apk del -q --purge .build-deps \
     && rm -rf /tmp/* /var/tmp/* /var/cache/apk/*
 
-EXPOSE 64738/tcp 64738/udp
+EXPOSE $PORT/tcp $PORT/udp
 
 VOLUME ["/opt/murmur/cert","/opt/murmur/config","/opt/murmur/data","/opt/murmur/log"]
 

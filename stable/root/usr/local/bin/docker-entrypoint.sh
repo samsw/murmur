@@ -61,6 +61,8 @@ murmur_setup() {
 
     sed -i '/logfile=murmur.log/c\logfile='"${LOGDIR}"'/murmur.log' ${CONFIGDIR}/murmur.ini
 
+    sed -i '/port=64738/c\port='"${PORT}" ${CONFIGDIR}/murmur.ini
+
     if [ -e ${CERTDIR}/privkey.pem ] && [ -e ${CERTDIR}/fullchain.pem ]; then
         sed -i '/sslCert=/c\sslCert='"${CERTDIR}"'/fullchain.pem' ${CONFIGDIR}/murmur.ini
         sed -i '/sslKey=/c\sslKey='"${CERTDIR}"'/privkey.pem' ${CONFIGDIR}/murmur.ini
